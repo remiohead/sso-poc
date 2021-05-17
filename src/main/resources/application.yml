@@ -20,9 +20,19 @@ spring:
             client-authentication-method: post
             authorization-grant-type: authorization_code
             redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            provider: keycloak
+            scope: openid,profile,phone,email,address
+            client-authentication-method: post
+            authorization-grant-type: authorization_code
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
         provider:
           pingidentity:
             issuer-uri: https://auth.pingone.com/${ping.environmentId}/as
+          keycloak:
+            issuer-uri: https://identity.remiohead.net/auth/realms/mtab
 
 ping:
   environmentId: ${PING_ENVIRONMENT_ID}
