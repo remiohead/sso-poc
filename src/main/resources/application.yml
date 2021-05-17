@@ -1,0 +1,32 @@
+server:
+  forward-headers-strategy: NATIVE
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: your-github-client-id
+            client-secret: your-github-client-secret
+          google:
+            client-id: your-google-client-id
+            client-secret: your-google-client-secret
+          pingidentity:
+            client-id: ${PING_CLIENT_ID}
+            client-secret: ${PING_CLIENT_SECRET}
+            provider: pingidentity
+            scope: openid,profile,phone,email,address
+            client-authentication-method: post
+            authorization-grant-type: authorization_code
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          pingidentity:
+            issuer-uri: https://auth.pingone.com/${ping.environmentId}/as
+
+ping:
+  environmentId: ${PING_ENVIRONMENT_ID}
+
+logging:
+  level:
+    org.springframework.security: DEBUG
